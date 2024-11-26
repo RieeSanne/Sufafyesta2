@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     private bool isSprinting;
     private Vector3 velocity; // For gravity calculation
+    public PigManager pm;
 
     private void Start()
     {
@@ -70,6 +71,11 @@ public class PlayerMovement : MonoBehaviour
         if (!isSprinting && stamina < 100f)
         {
             stamina += staminaRegenRate * Time.deltaTime;
+        }
+    }
+    void OnTriggerEnter(Collider other){
+        if (other.gameObject.CompareTag("Pig")){
+            pm.pigCount++;
         }
     }
 }
