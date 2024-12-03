@@ -30,11 +30,4 @@ public class TriggerSmallPig : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-
-    // Ensure the PigTracker persists between scenes
-    void Awake()
-    {
-        // Ensure the PigTracker persists across scenes
-        DontDestroyOnLoad(pigTracker);
-    }
 }
