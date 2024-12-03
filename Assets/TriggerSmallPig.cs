@@ -13,10 +13,11 @@ public class TriggerSmallPig : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            // Add this pig's ID to the PigTracker
+            // Check if this pig has not been captured yet
             if (!pigTracker.capturedPigs.Contains(pigID))
             {
-                pigTracker.capturedPigs.Add(pigID);
+                pigTracker.capturedPigs.Add(pigID); // Add this pig's ID to the PigTracker
+                Debug.Log("Captured Pig ID: " + pigID); // Debug log to confirm capture
             }
 
             // Load the QTE scene or SmallPig scene
@@ -28,5 +29,12 @@ public class TriggerSmallPig : MonoBehaviour
     void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    // Ensure the PigTracker persists between scenes
+    void Awake()
+    {
+        // Ensure the PigTracker persists across scenes
+        DontDestroyOnLoad(pigTracker);
     }
 }

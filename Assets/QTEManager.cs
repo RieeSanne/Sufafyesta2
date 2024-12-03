@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class QTEManager : MonoBehaviour
 {
-    public int requiredPresses = 30; // Total number of alternating presses required
+    public int requiredPresses = 10; // Total number of alternating presses required
     private int pressCount = 0;
     private bool lastPressedA = false; // Tracks the last button pressed
 
