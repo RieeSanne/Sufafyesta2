@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cffda2a46477491fb63d69e467b3a8e, type: 3}
   m_Name: PigTracker
   m_EditorClassIdentifier: 
-  capturedPigs: 04000000010000000300000002000000
+  capturedPigs: 010000000300000004000000
