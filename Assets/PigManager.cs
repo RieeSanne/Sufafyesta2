@@ -7,10 +7,18 @@ public class PigManager : MonoBehaviour
     public Text pigText; // Text UI element to display the pig count
     public PigTracker pigTracker; // Assign your PigTracker ScriptableObject
 
+    private static bool isFirstPlay = true; // Static flag to track the first play
+
     void Start()
     {
-        Pig[] allPigs = FindObjectsOfType<Pig>();
+        if (isFirstPlay)
+        {
+            isFirstPlay = false; // Ensure this runs only once per play session
+            pigTracker.capturedPigs.Clear(); // Reset the captured pigs list
+        }
+
         pigCount = 0; // Initialize the pigCount to zero
+        Pig[] allPigs = FindObjectsOfType<Pig>();
 
         foreach (Pig pig in allPigs)
         {
@@ -20,9 +28,11 @@ public class PigManager : MonoBehaviour
                 pigCount++; // Increment the count for each destroyed pig
             }
         }
+
+        UpdateUI();
     }
 
-    void Update()
+    void UpdateUI()
     {
         pigText.text = "Pig Count: " + pigCount.ToString(); // Display the pig count
     }
