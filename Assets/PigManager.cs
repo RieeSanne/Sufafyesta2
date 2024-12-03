@@ -9,27 +9,31 @@ public class PigManager : MonoBehaviour
 
     private static bool isFirstPlay = true; // Static flag to track the first play
 
-    void Start()
+    void OnEnable()
     {
+        // Ensure the pigTracker is reset at the start of the game
         if (isFirstPlay)
         {
             isFirstPlay = false; // Ensure this runs only once per play session
             pigTracker.capturedPigs.Clear(); // Reset the captured pigs list
         }
+    }
 
+    void Start()
+    {
         pigCount = 0; // Initialize the pigCount to zero
-        Pig[] allPigs = FindObjectsOfType<Pig>();
+        Pig[] allPigs = FindObjectsOfType<Pig>(); // Find all the pig objects in the scene
 
         foreach (Pig pig in allPigs)
         {
-            if (pigTracker.capturedPigs.Contains(pig.pigID))
+            if (pigTracker.capturedPigs.Contains(pig.pigID)) // Check if the pig is captured
             {
                 Destroy(pig.gameObject); // Remove the captured pig
                 pigCount++; // Increment the count for each destroyed pig
             }
         }
 
-        UpdateUI();
+        UpdateUI(); // Update the UI to reflect the pig count
     }
 
     void UpdateUI()
