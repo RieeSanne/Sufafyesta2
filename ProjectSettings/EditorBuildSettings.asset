@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SmallPig.unity
     guid: b14785e6441974ff984c329d5468b855
+  - enabled: 1
+    path: Assets/Scenes/Overworld.unity
+    guid: b8612cbf0da9ece4ca0796f4e13762cf
   m_configObjects: {}
