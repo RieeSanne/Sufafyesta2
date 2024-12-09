@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SmallPig.unity
     guid: b14785e6441974ff984c329d5468b855
+  - enabled: 1
+    path: Assets/Scenes/Lose.unity
+    guid: 3cc107d749e95fa458630cfcf1cd9bfa
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: b5433fc5350f53c4eb9f3edf15e97993
   m_configObjects: {}
