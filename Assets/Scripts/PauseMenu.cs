@@ -6,30 +6,52 @@ using UnityEngine.SceneManagement;
 public class NewBehaviourScript : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    private bool isPaused = false;
 
-    public void Pause(){
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+
+    public void Pause()
+    {
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
+        isPaused = true;
     }
 
-    public void Resume(){
+    public void Resume()
+    {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
+        isPaused = false;
     }
 
-    public void Home (int sceneID){
+    public void Home(int sceneID)
+    {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneID);
     }
 
-    public void Kausapin (int sceneID){
+    public void Kausapin(int sceneID)
+    {
         Time.timeScale = 2f;
         SceneManager.LoadScene(sceneID);
     }
-    public void QuitGame(){
-        Debug.Log ("Quit!");
+
+    public void QuitGame()
+    {
+        Debug.Log("Quit!");
         Application.Quit();
     }
-
-
 }

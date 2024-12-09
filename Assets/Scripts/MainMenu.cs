@@ -20,6 +20,10 @@ public class MainMenu : MonoBehaviour
     public void Town1(){
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 3);}
 
+    public void Game(){
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 4);}
+
+
     public void QuitGame(){
         Debug.Log ("Quit!");
         Application.Quit();
