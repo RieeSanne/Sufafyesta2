@@ -4,20 +4,47 @@ using UnityEngine;
 
 public class MouseCamera : MonoBehaviour
 {
+    public float sensitivity = 2f; // Sensitivity for mouse movement
+    private Vector2 rotation = Vector2.zero; // Tracks horizontal and vertical rotation
 
-    public Vector2 turn;
-    public float sensitivity = .5f;
-    public Vector3 deltaMove;
-    public float speed = 1;
     void Start()
     {
+        // Lock the cursor to the center of the screen and hide it
         Cursor.lockState = CursorLockMode.Locked;
-    }
-    void Update()
-    {
-        turn.x += Input.GetAxis("Mouse X") * sensitivity;
-        turn.y += Input.GetAxis("Mouse Y") * sensitivity;
-        transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
+        Cursor.visible = false; // Hide the cursor
     }
 
+    void Update()
+    {
+        // Toggle cursor lock mode when LeftAlt is pressed
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true; // Show the cursor
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false; // Hide the cursor
+            }
+        }
+
+        // Only process mouse input when the cursor is locked
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            // Get mouse input
+            float mouseX = Input.GetAxis("Mouse X") * sensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+
+            // Adjust rotation based on mouse input
+            rotation.x += mouseX; // Horizontal rotation
+            rotation.y -= mouseY; // Vertical rotation (inverted Y-axis)
+            rotation.y = Mathf.Clamp(rotation.y, -90f, 90f); // Clamp vertical rotation to prevent flipping
+
+            // Apply the rotation
+            transform.localRotation = Quaternion.Euler(rotation.y, rotation.x, 0f);
+        }
+    }
 }
