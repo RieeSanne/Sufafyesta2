@@ -23,6 +23,9 @@ public class MainMenu : MonoBehaviour
     public void Game(){
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 4);}
 
+     public void Mayor(){
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 6);}
+
 
     public void QuitGame(){
         Debug.Log ("Quit!");

@@ -24,6 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Win.unity
     guid: b5433fc5350f53c4eb9f3edf15e97993
   - enabled: 1
-    path: Assets/Scenes/Interaction.unity
-    guid: 7cc897b29c854b642bdd684c6ead37b6
+    path: Assets/Scenes/Mayor.unity
+    guid: dcef7bdfee1fc714185c4111db521333
   m_configObjects: {}
