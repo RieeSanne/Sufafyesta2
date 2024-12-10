@@ -40,6 +40,8 @@ public class NPCInteraction : MonoBehaviour
             {
                 dialogueBox.SetActive(true); // Show dialogue box
                 dialogueText.text = "Hi Player! Are you interested in joining the habulan ng baboy game?"; // Example dialogue
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
             else
             {

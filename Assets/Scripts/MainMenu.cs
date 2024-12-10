@@ -21,7 +21,10 @@ public class MainMenu : MonoBehaviour
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 3);}
 
     public void Game(){
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 4);}
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);}
+
+     public void Mayor(){
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 6);}
 
 
     public void QuitGame(){
