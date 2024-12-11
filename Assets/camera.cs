@@ -5,7 +5,7 @@
         {
         	Transform playerTransform;
         	
-        	Vector3 cameraOrientationVector = new Vector3 (0, 7, -12f);
+        	Vector3 cameraOrientationVector = new Vector3 (0, 6, -12f);
         	
 
 void Start () 
