@@ -36,14 +36,10 @@ public class MouseCamera : MonoBehaviour
         {
             // Get mouse input
             float mouseX = Input.GetAxis("Mouse X") * sensitivity;
-            // float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
             // Adjust rotation based on mouse input
             rotation.x += mouseX; // Horizontal rotation
-           // rotation.y -= mouseY; // Vertical rotation (inverted Y-axis)
-           // rotation.y = Mathf.Clamp(rotation.y, -90f, 90f); // Clamp vertical rotation to prevent flipping
 
-            // Apply the rotation
             transform.localRotation = Quaternion.Euler(rotation.y, rotation.x, 0f);
         }
     }
