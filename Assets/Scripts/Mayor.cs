@@ -10,10 +10,10 @@ public class Mayor : MonoBehaviour
     private bool isPlayerInRange = false;
     private string[] dialogues = new string[] // Array to store dialogues
     {
-        "Welcome to the Harvest Festival!",
-        "Enjoy the sights, sounds, and festivities.",
-        "Don't miss out on the famous pig-chasing contest!",
-        "Have fun and make the most of this joyful celebration!"
+        "Welcome to this year's Town Festival!",
+        "Immerse yourself in the vibrant sights, sounds, and celebrations.",
+        "Be sure to catch the excitement of the famous pig-chasing contest!", 
+        "Have a fantastic time and create unforgettable memories at this joyful event!"
     };
     private int currentDialogueIndex = 0; // Tracks the current dialogue being displayed
 
