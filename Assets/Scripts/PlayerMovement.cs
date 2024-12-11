@@ -8,16 +8,20 @@ public class PlayerMovement : MonoBehaviour
     public float staminaDrainRate = 20f;
     public float staminaRegenRate = 10f;
     public float gravity = -9.81f; // Gravity force
+    public float rotationSpeed = 10f; // Speed of turning
 
     private CharacterController controller;
+    private Animator animator; // Reference to the Animator
     private float currentSpeed;
     private bool isSprinting;
     private Vector3 velocity; // For gravity calculation
+    private Vector3 moveDirection; // For movement direction
     public PigManager pm;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>(); // Get the Animator component
         currentSpeed = walkSpeed;
     }
 
@@ -29,17 +33,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        // Get input and invert forward/backward only
+        float horizontal = Input.GetAxis("Horizontal"); // Normal A/D input
+        float vertical = Input.GetAxis("Vertical");    // Inverted W/S input
+        moveDirection = new Vector3(horizontal, 0, vertical).normalized;
 
-        if (direction.magnitude >= 0.1f)
+        // Update Animator's Speed parameter
+        float speed = moveDirection.magnitude * (isSprinting ? sprintSpeed / walkSpeed : 1f);
+        animator.SetFloat("Speed", speed);
+
+        if (speed >= 0.1f)
         {
-            Vector3 move = transform.right * horizontal + transform.forward * vertical;
-            controller.Move(move * currentSpeed * Time.deltaTime);
+            // Rotate the character to face the movement direction
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            // Move the character
+            Vector3 movement = moveDirection * currentSpeed * Time.deltaTime;
+            controller.Move(movement);
         }
 
-        // Sprinting
+        // Sprinting logic
         if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
         {
             isSprinting = true;
@@ -73,8 +87,11 @@ public class PlayerMovement : MonoBehaviour
             stamina += staminaRegenRate * Time.deltaTime;
         }
     }
-    void OnTriggerEnter(Collider other){
-        if (other.gameObject.CompareTag("Pig")){
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Pig"))
+        {
             pm.pigCount++;
         }
     }
