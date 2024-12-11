@@ -7,6 +7,10 @@ TagManager:
   - Pig
   - Wall
   - TimerText
+  - FadeImage
+  - EPrompt
+  - DialogueBox
+  - DialogueText
   layers:
   - Default
   - TransparentFX

@@ -19,12 +19,15 @@ public class Mayor : MonoBehaviour
 
     private void Start()
     {
-        ePrompt.SetActive(false); // Hide E prompt initially
-        dialogueBox.SetActive(false); // Hide dialogue box initially
+        FindComponents(); // Ensure all references are assigned
+        if (ePrompt != null) ePrompt.SetActive(false); // Hide E prompt initially
+        if (dialogueBox != null) dialogueBox.SetActive(false); // Hide dialogue box initially
     }
 
     private void OnTriggerEnter(Collider other) // For 3D
     {
+        if (ePrompt == null) FindComponents(); // Reassign reference if missing
+
         if (other.CompareTag("Player"))
         {
             ePrompt.SetActive(true); // Show E prompt
@@ -34,6 +37,8 @@ public class Mayor : MonoBehaviour
 
     private void OnTriggerExit(Collider other) // For 3D
     {
+        if (ePrompt == null) FindComponents(); // Reassign reference if missing
+
         if (other.CompareTag("Player"))
         {
             ePrompt.SetActive(false); // Hide E prompt
@@ -79,12 +84,38 @@ public class Mayor : MonoBehaviour
 
     private void ChangeScene()
     {
-        SceneManager.LoadScene("Overworld"); // Load the "Overworld" scene
+        if (SceneTransition.Instance != null)
+        {
+            SceneTransition.Instance.FadeOutAndLoadScene("Overworld");
+        }
+        else
+        {
+            Debug.LogWarning("SceneTransition instance not found. Loading scene directly.");
+            SceneManager.LoadScene("Overworld");
+        }
     }
 
     private void ResetDialogue()
     {
         dialogueBox.SetActive(false); // Hide the dialogue box
         currentDialogueIndex = 0; // Reset to the first dialogue
+    }
+
+    private void FindComponents()
+    {
+        if (ePrompt == null)
+        {
+            ePrompt = GameObject.FindWithTag("EPrompt"); // Dynamically find the E prompt
+        }
+
+        if (dialogueBox == null)
+        {
+            dialogueBox = GameObject.FindWithTag("DialogueBox"); // Dynamically find the dialogue box
+        }
+
+        if (dialogueText == null)
+        {
+            dialogueText = GameObject.FindWithTag("DialogueText")?.GetComponent<TMPro.TextMeshProUGUI>(); // Dynamically find the dialogue text
+        }
     }
 }
