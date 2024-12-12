@@ -22,7 +22,7 @@ public class PigManager : MonoBehaviour
 
     void Start()
     {
-        pigCount = 0; // Initialize the pigCount to zero
+        pigCount = -1; // Initialize the pigCount to zero
         Pig[] allPigs = FindObjectsOfType<Pig>(); // Find all the pig objects in the scene
 
         foreach (Pig pig in allPigs)

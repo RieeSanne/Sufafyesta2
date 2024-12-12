@@ -27,19 +27,17 @@ public class GameTimer : MonoBehaviour
     void Start()
     {
         FindComponentsInScene(); // Find timerText and PigManager in the current scene
-
-        // Reset the timer when transitioning to gameplay scenes
-        if (SceneManager.GetActiveScene().name == "GameScene") // Replace "GameScene" with your actual gameplay scene name
-        {
-            timer = 60f; // Reset timer to initial value
-            gameOver = false; // Reset gameOver flag
-        }
     }
 
     void Update()
     {
         if (gameOver || SceneManager.GetActiveScene().name == "Win" || SceneManager.GetActiveScene().name == "Lose")
             return;
+
+        if (timerText == null || pigManager == null) // Safety check
+        {
+            FindComponentsInScene();
+        }
 
         timer -= Time.deltaTime; // Decrease the timer over time
         UpdateTimerUI(); // Update the UI display
@@ -54,6 +52,7 @@ public class GameTimer : MonoBehaviour
             LoadOverworld();
         }
     }
+
 
     void UpdateTimerUI()
     {
@@ -89,22 +88,30 @@ public class GameTimer : MonoBehaviour
         }
     }
 
-   void FindComponentsInScene()
-{
-    timerText = GameObject.FindWithTag("TimerText")?.GetComponent<Text>();
-    pigManager = FindObjectOfType<PigManager>(); // Locate PigManager in the current scene
-
-    // Debugging
-    if (timerText != null)
+    void FindComponentsInScene()
     {
-        Debug.Log("TimerText found and assigned!");
-    }
-    else
-    {
-        Debug.LogError("TimerText reference is missing in the scene!");
-    }
-}
+        timerText = GameObject.FindWithTag("TimerText")?.GetComponent<Text>();
+        pigManager = FindObjectOfType<PigManager>(); // Locate PigManager in the current scene
 
+        // Debugging
+        if (timerText != null)
+        {
+            Debug.Log("TimerText found and assigned!");
+        }
+        else
+        {
+            Debug.LogError("TimerText reference is missing in the scene!");
+        }
+
+        if (pigManager != null)
+        {
+            Debug.Log("PigManager found and assigned!");
+        }
+        else
+        {
+            Debug.LogError("PigManager reference is missing in the scene!");
+        }
+    }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -118,6 +125,13 @@ public class GameTimer : MonoBehaviour
                 timer = 60f; // Reset timer
                 gameOver = false; // Reset gameOver flag
             }
+        }
+
+        if (scene.name == "GameScene") // Replace with your actual game scene name
+        {
+        timer = 60f; // Reset the timer
+        gameOver = false; // Reset the game over flag
+        FindComponentsInScene(); // Ensure timerText and PigManager references are updated
         }
     }
 
